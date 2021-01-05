@@ -26,7 +26,7 @@ public class IssueCar extends javax.swing.JFrame {
         jLabel20.setText( new SimpleDateFormat("dd / MM / yyyy").format(new Date()) );
         
         try{
-            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/carrental", "root", "12345/SvD");
+            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/carrental", "root", "temp");
         }
         catch(Exception e){e.printStackTrace();}
     }

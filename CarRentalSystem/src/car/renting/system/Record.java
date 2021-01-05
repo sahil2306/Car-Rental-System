@@ -18,7 +18,7 @@ public class Record extends javax.swing.JFrame {
         jTable1.setEnabled(false);
         
         try{   
-            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/carrental", "root", "12345/SvD");
+            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/carrental", "root", "temp");
   
             PreparedStatement ps = c.prepareStatement("select s.CID, s.Name, c.NumberPlate, c.Name, r.IssueDate, r.ReturnDate, r.KMSTravelled from Customer s, Car c, Record r where r.CID=s.CID AND r.NumberPlate=c.NumberPlate; ");
             ResultSet set = ps.executeQuery();

@@ -19,7 +19,7 @@ public class NewCustomer extends javax.swing.JFrame {
         jTable1.setEnabled(false);
         
         try{
-            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/carrental", "root", "12345/SvD");
+            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/carrental", "root", "temp");
             displaytable();
         }
         catch(Exception e){e.printStackTrace();}
