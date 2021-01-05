@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.*;
 import net.proteanit.sql.DbUtils;
 
 public class NewCustomer extends javax.swing.JFrame {
@@ -18,9 +19,7 @@ public class NewCustomer extends javax.swing.JFrame {
         jTable1.setEnabled(false);
         
         try{
-            Class.forName("com.mysql.jdbc.Driver");	   
-            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_management_system", "root", "root");
-        
+            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/carrental", "root", "12345/SvD");
             displaytable();
         }
         catch(Exception e){e.printStackTrace();}
@@ -68,6 +67,12 @@ public class NewCustomer extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
             }
         });
 
@@ -187,7 +192,7 @@ public class NewCustomer extends javax.swing.JFrame {
     private void displaytable(){
         
         try{
-            PreparedStatement ps = c.prepareStatement("select * from Student;");
+            PreparedStatement ps = c.prepareStatement("select * from Customer;");
             ResultSet set = ps.executeQuery();
             
             jTable1.setModel(DbUtils.resultSetToTableModel(set));
@@ -205,35 +210,37 @@ public class NewCustomer extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-//        if ( jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty() || jTextField4.getText().isEmpty() ){
-//            JOptionPane.showMessageDialog(new JFrame(), "The fields cannot be left blank.", "Message" , JOptionPane.INFORMATION_MESSAGE);
-//        }
-//        else{
-//            try{
-//                int SID = Integer.parseInt( jTextField1.getText() );
-//                String Name = jTextField2.getText();
-//                String Course = jComboBox1.getSelectedItem().toString();
-//                String Branch = jTextField3.getText();
-//                String Email = jTextField4.getText();
-//
-//                PreparedStatement stmt = c.prepareStatement("insert into Student values('"+SID+"','"+Name+"','"+Course+"','"+Branch+"','"+Email+"') ");
-//                stmt.execute();
-//                displaytable();
-//                JOptionPane.showMessageDialog(new JFrame(), "Student Added Successfully !", "Message" , JOptionPane.INFORMATION_MESSAGE);
-//                
-//                jTextField1.setText("");
-//                jTextField2.setText("");
-//                jComboBox1.setSelectedIndex(0);
-//                jTextField3.setText("");
-//                jTextField4.setText("");
-//            }
-//            catch(Exception e) {
-//                e.printStackTrace();
-//                JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Message" , JOptionPane.ERROR_MESSAGE);
-//            }
-//        }
+        if ( jTextField5.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty() || jTextField4.getText().isEmpty() ){
+            JOptionPane.showMessageDialog(new JFrame(), "The fields cannot be left blank.", "Message" , JOptionPane.INFORMATION_MESSAGE);
+        }
+       else{
+           try{
+               String CID = jTextField2.getText();
+               String Name = jTextField5.getText();
+                String MobileNumber = jTextField3.getText();
+                String Email = jTextField4.getText();
+
+                PreparedStatement stmt = c.prepareStatement("insert into Customer values('"+CID+"','"+Name+"','"+MobileNumber+"','"+Email+"') ");
+                stmt.execute();
+                displaytable();
+                JOptionPane.showMessageDialog(new JFrame(), "Customer Added Successfully !", "Message" , JOptionPane.INFORMATION_MESSAGE);
+                
+                jTextField5.setText("");
+                jTextField2.setText("");
+                jTextField3.setText("");
+                jTextField4.setText("");
+            }
+           catch(Exception e) {
+               e.printStackTrace();
+               JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Message" , JOptionPane.ERROR_MESSAGE);
+            }
+        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -12,16 +12,15 @@ public class Record extends javax.swing.JFrame {
     
     public Record() {
         initComponents();
-        setTitle("Library Management System");
+        setTitle("Car Rental Shop");
         setResizable(false);
         setLocationRelativeTo(null);
         jTable1.setEnabled(false);
         
-        try{
-            Class.forName("com.mysql.jdbc.Driver");	   
-            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_management_system", "root", "root");   
-        
-            PreparedStatement ps = c.prepareStatement("select s.SID, s.Name, b.ISBN, b.Title, r.IssueDate, r.ReturnDate from Student s, Book b, Record r where r.SID=s.SID AND r.ISBN=b.ISBN; ");
+        try{   
+            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/carrental", "root", "12345/SvD");
+  
+            PreparedStatement ps = c.prepareStatement("select s.CID, s.Name, c.NumberPlate, c.Name, r.IssueDate, r.ReturnDate, r.KMSTravelled from Customer s, Car c, Record r where r.CID=s.CID AND r.NumberPlate=c.NumberPlate; ");
             ResultSet set = ps.executeQuery();
             
             jTable1.setModel(DbUtils.resultSetToTableModel(set));
@@ -50,9 +49,9 @@ public class Record extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"CUST14", "Tejas Bele", "1/1/2021", "", ""},
-                {"CUST16", "Sahil Morankar", "20/12/2020", "25/12/2020", "427"},
-                {"CUST12", "Shantanu Hallur", "7/12/2020", "15/12/2020", "787"}
+                {"", "", "", "", ""},
+                {"", "", "", "", ""},
+                {"", "", "", "", ""}
             },
             new String [] {
                 "Customer ID", "Number Plate", "Issue Date", "Return Date", "KMS Travelled"
@@ -86,14 +85,14 @@ public class Record extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Book Details");
+        jButton2.setText("Car Details");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Student Details");
+        jButton1.setText("Customer Details");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -162,7 +161,7 @@ public class Record extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
         try{
-            PreparedStatement ps = c.prepareStatement("select * from Book;");
+            PreparedStatement ps = c.prepareStatement("select * from Car;");
             ResultSet set = ps.executeQuery();
             
             jTable1.setModel(DbUtils.resultSetToTableModel(set));
@@ -173,8 +172,8 @@ public class Record extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         
-        try{
-            PreparedStatement ps = c.prepareStatement("select s.SID, s.Name, b.ISBN, b.Title, r.IssueDate, r.ReturnDate from Student s, Book b, Record r where r.SID=s.SID AND r.ISBN=b.ISBN; ");
+        try{   
+            PreparedStatement ps = c.prepareStatement("select s.CID, s.Name, c.NumberPlate, c.Name, r.IssueDate, r.ReturnDate, r.KMSTravelled from Customer s, Car c, Record r where r.CID=s.CID AND r.NumberPlate=c.NumberPlate; ");
             ResultSet set = ps.executeQuery();
             
             jTable1.setModel(DbUtils.resultSetToTableModel(set));
@@ -185,7 +184,7 @@ public class Record extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         try{
-            PreparedStatement ps = c.prepareStatement("select * from Student;");
+            PreparedStatement ps = c.prepareStatement("select * from Customer;");
             ResultSet set = ps.executeQuery();
             
             jTable1.setModel(DbUtils.resultSetToTableModel(set));

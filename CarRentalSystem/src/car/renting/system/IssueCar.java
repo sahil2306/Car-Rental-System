@@ -12,22 +12,21 @@ import java.util.Date;
 public class IssueCar extends javax.swing.JFrame {
 
     static Connection c;
-    static String ISBN, SID;
+    static String NumberPlate, CID;
     
     public IssueCar() {
         initComponents();
-        setTitle("Library Management System");
+        setTitle("Car Rental Shop");
         setResizable(false);
         setLocationRelativeTo(null);
         
-        ISBN = "";
-        SID = "";
+        NumberPlate = "";
+        CID = "";
         
         jLabel20.setText( new SimpleDateFormat("dd / MM / yyyy").format(new Date()) );
         
         try{
-            Class.forName("com.mysql.jdbc.Driver");	   
-            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_management_system", "root", "root");
+            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/carrental", "root", "12345/SvD");
         }
         catch(Exception e){e.printStackTrace();}
     }
@@ -84,15 +83,15 @@ public class IssueCar extends javax.swing.JFrame {
             }
         });
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Car Detials", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Car Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
 
-        jLabel8.setText("8");
+        jLabel8.setText("---");
 
         jLabel3.setText("Body Style");
 
         jLabel1.setText("Number Plate");
 
-        jLabel7.setText("SUV");
+        jLabel7.setText("---");
 
         jButton1.setText("Search");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -101,7 +100,7 @@ public class IssueCar extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Scorpio");
+        jLabel6.setText("---");
 
         jLabel2.setText("Name");
 
@@ -115,7 +114,7 @@ public class IssueCar extends javax.swing.JFrame {
 
         jLabel4.setText("Number of seats");
 
-        jLabel9.setText("Rs 10 per km");
+        jLabel9.setText("---");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -175,13 +174,19 @@ public class IssueCar extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Customer Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
 
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
         jLabel10.setText("Name");
 
         jLabel17.setText("---");
 
         jLabel12.setText("Email");
 
-        jLabel16.setText("7499184548");
+        jLabel16.setText("---");
 
         jLabel11.setText("Mobile Number");
 
@@ -194,7 +199,7 @@ public class IssueCar extends javax.swing.JFrame {
             }
         });
 
-        jLabel15.setText("Shantanu Hallur");
+        jLabel15.setText("---");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -321,9 +326,9 @@ public class IssueCar extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
-        //        Record record = new Record();
-        //        record.setVisible(true);
-        //        this.dispose();
+                Record record = new Record();
+                record.setVisible(true);
+                this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -338,23 +343,23 @@ public class IssueCar extends javax.swing.JFrame {
 
             try{
                 ResultSet rs;
-                PreparedStatement ps = c.prepareStatement("select * from Student where SID = ?; ");
+                PreparedStatement ps = c.prepareStatement("select * from Customer where CID = ?; ");
                 ps.setString(1,jTextField2.getText());
                 rs = ps.executeQuery();
 
                 while(true){
                     if (rs.next()){
-                        SID = rs.getString("SID");
+                        CID = rs.getString("CID");
                         jLabel15.setText( rs.getString("Name") );
-                        jLabel16.setText( rs.getString("Course") );
-                        jLabel17.setText( rs.getString("Branch") );
+                        jLabel16.setText( rs.getString("MobileNumber") );
+                        jLabel17.setText( rs.getString("Email") );
                         break;
                     }
                     else{
                         jLabel15.setText( "---" );
                         jLabel16.setText( "---" );
                         jLabel17.setText( "---" );
-                        JOptionPane.showMessageDialog(new JFrame(), "Student Not Found in Database.", "Message" , JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(new JFrame(), "Customer Not Found in Database.", "Message" , JOptionPane.INFORMATION_MESSAGE);
                         jTextField2.setText("");
                         break;
                     }
@@ -378,17 +383,21 @@ public class IssueCar extends javax.swing.JFrame {
 
             try{
                 ResultSet rs;
-                PreparedStatement ps = c.prepareStatement("select * from Book where ISBN = ?; ");
+                PreparedStatement ps = c.prepareStatement("select * from Car where NumberPlate = ?; ");
                 ps.setString(1,jTextField1.getText());
                 rs = ps.executeQuery();
-
+                
                 while(true){
                     if (rs.next()){
-                        ISBN = rs.getString("ISBN");
-                        jLabel6.setText( rs.getString("Title") );
-                        jLabel7.setText( rs.getString("Author") );
-                        jLabel8.setText( rs.getString("Price") );
-                        jLabel9.setText( rs.getString("Quantity") );
+                        if(rs.getString("Available").contentEquals("Available")) {
+                            NumberPlate = rs.getString("NumberPlate");
+                            jLabel6.setText( rs.getString("Name") );
+                            jLabel7.setText( rs.getString("BodyStyle") );
+                            jLabel8.setText( rs.getString("Rate") );
+                            jLabel9.setText( rs.getString("NumberOfSeats") );
+                        }else {
+                            JOptionPane.showMessageDialog(new JFrame(), "Car Not Available", "Message" , JOptionPane.INFORMATION_MESSAGE);
+                        }   
                         break;
                     }
                     else{
@@ -396,7 +405,7 @@ public class IssueCar extends javax.swing.JFrame {
                         jLabel7.setText( "---" );
                         jLabel8.setText( "---" );
                         jLabel9.setText( "---" );
-                        JOptionPane.showMessageDialog(new JFrame(), "Book Not Found in Database.", "Message" , JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(new JFrame(), "Car Not Found in Database.", "Message" , JOptionPane.INFORMATION_MESSAGE);
                         jTextField1.setText("");
                         break;
                     }
@@ -417,20 +426,32 @@ public class IssueCar extends javax.swing.JFrame {
 
             try{
 
-                String date = new SimpleDateFormat("yyMMdd").format(new Date());
+                String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 
-                PreparedStatement ps = c.prepareStatement("insert into Record values(?,?,?,null); ");
-                ps.setString(1, SID);
-                ps.setString(2, ISBN);
-                ps.setString(3, date);
+                //TO DO
+                //CHANGES REQUIRED
+                PreparedStatement ps = c.prepareStatement("insert into Record (KMSTravelled,IssueDate,ReturnDate,CID,NumberPlate) values(?,?,?,?,?); ");
+                ps.setInt(1,0);
+                ps.setString(2, date);
+                ps.setString(3, "");
+                ps.setString(4, CID);
+                ps.setString(5, NumberPlate);
                 ps.execute();
 
-                ps = c.prepareStatement("update Book set Quantity = Quantity-1 where ISBN = ?; ");
-                ps.setString(1, ISBN);
+                ps = c.prepareStatement("update Car set Available = 'Not Available' where NumberPlate = ?; ");
+                ps.setString(1, NumberPlate);
                 ps.execute();
 
-                JOptionPane.showMessageDialog(new JFrame(), "Book Issued Successfully.", "Message" , JOptionPane.INFORMATION_MESSAGE);
-
+                JOptionPane.showMessageDialog(new JFrame(), "Car Booked Successfully.", "Message" , JOptionPane.INFORMATION_MESSAGE);
+                jTextField1.setText("");
+                jTextField2.setText("");
+                jLabel6.setText( "---" );
+                jLabel7.setText( "---" );
+                jLabel8.setText( "---" );
+                jLabel9.setText( "---" );
+                jLabel15.setText( "---" );
+                jLabel16.setText( "---" );
+                jLabel17.setText( "---" );
             }
             catch(Exception e) {
                 e.printStackTrace();
@@ -451,6 +472,10 @@ public class IssueCar extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
 public class NewCar extends javax.swing.JFrame {
-
     static Connection c;
     
     public NewCar() {
@@ -19,9 +18,8 @@ public class NewCar extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         jTable1.setEnabled(false);
         
-        try{
-            Class.forName("com.mysql.jdbc.Driver");	   
-            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_management_system", "root", "root");
+        try{   
+            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/carrental", "root", "12345/SvD");
             displaytable();
         }
         catch(Exception e){e.printStackTrace();}
@@ -138,7 +136,7 @@ public class NewCar extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                    .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -208,7 +206,7 @@ public class NewCar extends javax.swing.JFrame {
     private void displaytable(){
         
         try{
-            PreparedStatement ps = c.prepareStatement("select * from Book;");
+            PreparedStatement ps = c.prepareStatement("select * from Car;");
             ResultSet set = ps.executeQuery();
             
             jTable1.setModel(DbUtils.resultSetToTableModel(set));
@@ -224,18 +222,18 @@ public class NewCar extends javax.swing.JFrame {
         }
         else{
             try{
-                int ISBN = Integer.parseInt( jTextField1.getText() );
-                String Title = jTextField2.getText();
-                String Author = jTextField3.getText();
-                int Price = Integer.parseInt( jTextField4.getText() );
-                int Quantity = Integer.parseInt( jTextField5.getText() );
+                String NumberPlate = jTextField1.getText();
+                String Name = jTextField2.getText();
+                String BodyStyle = jTextField3.getText();
+                String Rate = jTextField5.getText();
+                int NumberOfSeats = Integer.parseInt(jTextField4.getText());
 
-                PreparedStatement stmt = c.prepareStatement("insert into Book values('"+ISBN+"','"+Title+"','"+Author+"','"+Price+"','"+Quantity+"') ");
+                PreparedStatement stmt = c.prepareStatement("insert into Car values('" + NumberPlate + "','" + Name + "','" + BodyStyle + "','" + Rate + "','" + NumberOfSeats + "','Available');");
                 stmt.execute();
                 
                 displaytable();
                 
-                JOptionPane.showMessageDialog(new JFrame(), "Book Added Successfully !", "Message" , JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(new JFrame(), "Car Added Successfully !", "Message" , JOptionPane.INFORMATION_MESSAGE);
                 
                 jTextField1.setText("");
                 jTextField2.setText("");
