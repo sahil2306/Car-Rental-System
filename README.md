@@ -4,7 +4,8 @@ Public transportation by Road is the most used means of transportation in India 
 
 Renting commodities is very common nowadays with increasing digital transactions and ease of payments. Our aim is to create a system software where we can list cars for rent with their details and a customer can rent the car with a fixed fair rate and handle all this information powered by Relational Databases.
 
-Features of the Software :- [ Login/LogOut, Adding a New Car/Deleting, Updating, Searching, Your Drives, Renting, Returning, Date, Fair].
+Features of the Software :- Authentication, Adding/Deleting/Updating Rental Cars, Searching for Cars, User Search with dynamic fares
+Personal Dashbaord - User Drives, Renting and Returning Dates.
 
 These Features will have a good graphical interface for any party to indulge with to make it more user friendly.
 
